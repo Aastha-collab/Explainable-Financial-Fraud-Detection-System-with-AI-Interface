@@ -7,6 +7,11 @@ The goal is to create an interpretable fraud detection solution suitable for rea
 
 ---
 
+## Live Demo
+https://explainable-financial-fraud-detection-system-with-ai-interface.streamlit.app
+
+---
+
 ## Problem Statement
 Financial institutions process millions of transactions daily, making manual fraud detection difficult. Traditional models provide predictions without explanations, reducing trust and interpretability. This project addresses this problem by combining fraud detection with explainable AI and chatbot interaction.
 
