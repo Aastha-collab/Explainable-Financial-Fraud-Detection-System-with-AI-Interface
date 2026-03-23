@@ -14,7 +14,7 @@ top_features = joblib.load("top_features.pkl")
 normal_means = joblib.load("normal_means.pkl")
 
 # Load dataset
-df = pd.read_csv("sample_df.to_csv")
+df = pd.read_csv("creditcard_sample.csv")
 X = df.drop("Class", axis=1)
 y = df["Class"]
 
