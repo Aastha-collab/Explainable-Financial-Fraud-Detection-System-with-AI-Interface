@@ -521,24 +521,24 @@ and business impact.
         )
 
         st.markdown(f"""
-        <div class="ai-box">
+<div class="ai-box">
 
-        <h3 style="
-        color:#F472B6;
-        ">
-        🤖 AI Assistant Response
-        </h3>
+<h3 style="
+color:#F472B6;
+">
+🤖 AI Assistant Response
+</h3>
 
-        <p style="
-        color:white;
-        line-height:1.8;
-        font-size:17px;
-        ">
-        {chatbot_response}
-        </p>
+<p style="
+color:white;
+line-height:1.8;
+font-size:17px;
+">
+{chatbot_response}
+</p>
 
-        </div>
-        """, unsafe_allow_html=True)
+</div>
+""", unsafe_allow_html=True)
 
 # =========================================================
 # SMALL GRAPHS SECTION
@@ -571,9 +571,9 @@ with g1:
     for val in values:
 
         if val >= 0:
-            colors.append("#22D3EE")
+            colors.append("#8B5CF6")
         else:
-            colors.append("#F472B6")
+            colors.append("#EC4899")
 
     ax1.bar(
         selected_features,
@@ -628,7 +628,7 @@ with g2:
 
         autopct='%1.1f%%',
 
-        colors=['#22D3EE','#F472B6'],
+        colors=['#8B5CF6','#EC4899'],
 
         textprops={'color':'white','fontsize':8}
     )
