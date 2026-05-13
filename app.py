@@ -645,10 +645,15 @@ with col2:
 
     st.markdown("### 📈 Risk Feature Scores")
 
-    selected_features = risk_factors[:5]
+    selected_features = risk_factors[:4]
 
     if len(selected_features) == 0:
-        selected_features = top_features[:5]
+        selected_features = top_features[:4]
+
+    # ADD AMOUNT FEATURE
+
+    if 'Amount' not in selected_features:
+        selected_features.append('Amount')
 
     values = [
         transaction[feature]
