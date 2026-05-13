@@ -563,23 +563,13 @@ if user_query:
 
     chatbot_response = smart_chatbot(user_query)
 
-    st.markdown(f"""
-    <div class="ai-box">
+    if user_query:
 
-    <h3 style="color:#F472B6;">
-    🤖 AI Assistant Response
-    </h3>
+    chatbot_response = smart_chatbot(user_query)
 
-    <p style="
-    color:white;
-    line-height:1.8;
-    font-size:17px;
-    ">
-    {chatbot_response}
-    </p>
+    st.markdown("### 🤖 AI Fraud Chatbot")
 
-    </div>
-    """, unsafe_allow_html=True)
+    st.info(chatbot_response)
 
     # =====================================================
     # CHATBOT OUTPUT
