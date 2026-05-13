@@ -433,29 +433,37 @@ with right:
     # SMART CHATBOT
     # =====================================================
 
-    def smart_chatbot(query):
+   def smart_chatbot(query):
 
-        q = query.lower()
+    q = query.lower()
 
-        if any(word in q for word in [
-            "prediction",
-            "fraud",
-            "result"
-        ]):
+    # =====================================================
+    # PREDICTION
+    # =====================================================
 
-            if prediction == 1:
+    if any(word in q for word in [
+        "prediction",
+        "fraud",
+        "result"
+    ]):
 
-                return f"""
+        if prediction == 1:
+
+            return f"""
 This transaction is predicted as FRAUD with probability of {round(proba*100,2)}%.
 """
 
-            else:
+        else:
 
-                return f"""
+            return f"""
 This transaction is predicted as NORMAL with low fraud probability of {round(proba*100,2)}%.
 """
 
-        elif any(word in q for word in [
+    # =====================================================
+    # TRANSACTION BEHAVIOR
+    # =====================================================
+
+    elif any(word in q for word in [
         "transaction behavior",
         "behaviour",
         "behavior",
@@ -464,11 +472,11 @@ This transaction is predicted as NORMAL with low fraud probability of {round(pro
         "spending pattern"
     ]):
 
-            amount = transaction['Amount']
+        amount = transaction['Amount']
 
-            if prediction == 1:
+        if prediction == 1:
 
-                  return f"""
+            return f"""
 This transaction shows suspicious behavioral patterns.
 
 The model detected abnormal deviations in features like {', '.join(risk_factors)}.
@@ -476,40 +484,52 @@ The model detected abnormal deviations in features like {', '.join(risk_factors)
 Transaction amount of {round(amount,2)} and unusual feature activity differ significantly from legitimate customer transaction patterns, which increases fraud probability.
 """
 
-           else:
+        else:
 
-                  return f"""
+            return f"""
 This transaction shows stable and legitimate customer behavior.
 
 Transaction amount of {round(amount,2)} and feature patterns remain close to normal transaction activity with low anomaly signals.
 """
 
-        elif any(word in q for word in [
-            "risk",
-            "factor",
-            "why"
-        ]):
+    # =====================================================
+    # RISK FACTORS
+    # =====================================================
 
-            return f"""
+    elif any(word in q for word in [
+        "risk",
+        "factor",
+        "why"
+    ]):
+
+        return f"""
 Main suspicious indicators:
 {', '.join(risk_factors)}
 """
 
-        elif any(word in q for word in [
-            "model",
-            "algorithm"
-        ]):
+    # =====================================================
+    # MODEL
+    # =====================================================
 
-            return """
+    elif any(word in q for word in [
+        "model",
+        "algorithm"
+    ]):
+
+        return """
 The system uses Random Forest Machine Learning algorithm for fraud classification.
 """
 
-        elif any(word in q for word in [
-            "dataset",
-            "data"
-        ]):
+    # =====================================================
+    # DATASET
+    # =====================================================
 
-            return f"""
+    elif any(word in q for word in [
+        "dataset",
+        "data"
+    ]):
+
+        return f"""
 Dataset contains:
 
 • Total Transactions: {len(df)}
@@ -517,34 +537,36 @@ Dataset contains:
 • Normal Cases: {len(df[df['Class']==0])}
 """
 
-        elif any(word in q for word in [
-            "business",
-            "impact"
-        ]):
+    # =====================================================
+    # BUSINESS IMPACT
+    # =====================================================
 
-            return """
+    elif any(word in q for word in [
+        "business",
+        "impact"
+    ]):
+
+        return """
 This system helps banks reduce fraud losses,
 improve fraud investigation speed,
 and enhance explainability in financial systems.
 """
 
-        else:
+    # =====================================================
+    # DEFAULT RESPONSE
+    # =====================================================
 
-            return f"""
-This transaction shows stable and legitimate customer behavior.
+    else:
 
-Transaction amount of {round(amount,2)} and feature patterns remain close to normal transaction activity with low anomaly signals.
-"""    
+        return """
+I can answer questions related to:
 
-        else:
-
-            return """
-I can answer questions related to fraud prediction,
-risk factors,
-dataset,
-model,
-transaction behavior,
-and business impact.
+• Fraud prediction
+• Risk factors
+• Dataset
+• Model
+• Transaction behavior
+• Business impact
 """
 
     # =====================================================
