@@ -589,21 +589,17 @@ if user_query:
 
     chatbot_response = smart_chatbot(user_query)
 
-    with st.container():
+    st.markdown("""
+    <div class="ai-box">
+    """, unsafe_allow_html=True)
 
-        st.markdown("""
-        <div class="ai-box">
-        """, unsafe_allow_html=True)
+    st.markdown("### 🤖 AI Fraud Chatbot")
 
-        st.markdown("""
-        ### 🤖 AI Assistant Response
-        """)
+    st.write(chatbot_response)
 
-        st.write(chatbot_response)
-
-        st.markdown("""
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown("""
+    </div>
+    """, unsafe_allow_html=True)
 
 # =========================================================
 # SMALL GRAPHS SECTION
@@ -611,103 +607,86 @@ if user_query:
 
 g1, g2 = st.columns(2)
 
-# =========================================================
-# FEATURE IMPORTANCE GRAPH
-# =========================================================
+# =====================================================
+# VISUALIZATIONS
+# =====================================================
 
-# =========================================================
-# BAR GRAPH
-# =========================================================
+st.markdown("## 📊 Interactive Visualizations")
 
-st.markdown("## 📊 Feature Visualization")
+col1, col2 = st.columns(2)
 
-selected_features = risk_factors[:5]
-
-if len(selected_features) == 0:
-
-    selected_features = top_features[:5]
-
-# KEEP ORIGINAL VALUES (INCLUDING NEGATIVE)
-
-values = [
-    transaction[feature]
-    for feature in selected_features
-]
-
-fig, ax = plt.subplots(figsize=(6,3))
-
-colors = [
-    '#EC4899',
-    '#A855F7',
-    '#6366F1',
-    '#06B6D4',
-    '#10B981'
-]
-
-ax.bar(
-    selected_features,
-    values,
-    color=colors[:len(selected_features)]
-)
-
-# ZERO LINE FOR NEGATIVE VALUES
-
-ax.axhline(
-    y=0,
-    color='black',
-    linewidth=1
-)
-
-ax.set_title(
-    "Risk Feature Scores",
-    fontsize=12
-)
-
-ax.tick_params(
-    axis='x',
-    labelsize=9
-)
-
-ax.tick_params(
-    axis='y',
-    labelsize=9
-)
-
-fig.patch.set_facecolor('#F8FAFF')
-
-ax.set_facecolor('#FFFFFF')
-
-st.pyplot(fig)
-
-# =========================================================
+# =====================================================
 # PIE CHART
-# =========================================================
+# =====================================================
 
-with g2:
+with col1:
 
-    st.markdown("## 📈 Dataset Distribution")
+    st.markdown("### 🥧 Dataset Distribution")
 
-    fig2, ax2 = plt.subplots(
-        figsize=(4,2.5)
-    )
+    fig1, ax1 = plt.subplots(figsize=(3.5,3.5))
 
-    ax2.pie(
+    colors = ['#A855F7', '#EC4899']
 
+    ax1.pie(
         [
             len(df[df['Class']==0]),
             len(df[df['Class']==1])
         ],
-
-        labels=['Normal','Fraud'],
-
+        labels=['Normal', 'Fraud'],
         autopct='%1.1f%%',
-
-        colors=['#A78BFA', '#F472B6'],
-
-        textprops={'color':'white','fontsize':8}
+        colors=colors,
+        textprops={'color':'white','fontsize':10}
     )
 
-    fig2.patch.set_facecolor("#111827")
+    fig1.patch.set_facecolor('#0B1120')
+    ax1.set_facecolor('#0B1120')
+
+    st.pyplot(fig1)
+
+# =====================================================
+# BAR GRAPH
+# =====================================================
+
+with col2:
+
+    st.markdown("### 📈 Risk Feature Scores")
+
+    selected_features = risk_factors[:5]
+
+    if len(selected_features) == 0:
+        selected_features = top_features[:5]
+
+    values = [
+        transaction[feature]
+        for feature in selected_features
+    ]
+
+    fig2, ax2 = plt.subplots(figsize=(4,3))
+
+    colors = [
+        '#EC4899',
+        '#A855F7',
+        '#6366F1',
+        '#06B6D4',
+        '#10B981'
+    ]
+
+    bars = ax2.bar(
+        selected_features,
+        values,
+        color=colors[:len(selected_features)]
+    )
+
+    ax2.axhline(0, color='white', linewidth=1)
+
+    ax2.tick_params(axis='x', labelsize=8, colors='white')
+    ax2.tick_params(axis='y', labelsize=8, colors='white')
+
+    ax2.set_facecolor('#0B1120')
+    fig2.patch.set_facecolor('#0B1120')
+
+    for spine in ax2.spines.values():
+        spine.set_color('white')
 
     st.pyplot(fig2)
 
