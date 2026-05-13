@@ -498,7 +498,7 @@ This system helps banks reduce fraud losses,
 improve fraud investigation speed,
 and enhance explainability in financial systems.
 """
-            elif any(word in q for word in [
+        elif any(word in q for word in [
         "transaction behavior",
         "behaviour",
         "behavior",
