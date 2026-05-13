@@ -506,7 +506,7 @@ and enhance explainability in financial systems.
         "transaction pattern",
         "spending pattern"
     ]):
-
+        
         amount = transaction['Amount']
 
         if prediction == 1:
