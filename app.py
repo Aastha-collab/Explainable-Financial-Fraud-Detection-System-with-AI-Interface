@@ -565,31 +565,12 @@ if user_query:
 
     if user_query:
 
-    chatbot_response = smart_chatbot(user_query)
+        chatbot_response = smart_chatbot(user_query)
 
-    st.markdown("### 🤖 AI Fraud Chatbot")
+        st.markdown("### 🤖 AI Fraud Chatbot")
 
-    st.info(chatbot_response)
+        st.info(chatbot_response)
 
-    # =====================================================
-    # CHATBOT OUTPUT
-    # =====================================================
-
-if user_query:
-
-    chatbot_response = smart_chatbot(user_query)
-
-    st.markdown("""
-    <div class="ai-box">
-    """, unsafe_allow_html=True)
-
-    st.markdown("### 🤖 AI Fraud Chatbot")
-
-    st.write(chatbot_response)
-
-    st.markdown("""
-    </div>
-    """, unsafe_allow_html=True)
 
 # =========================================================
 # SMALL GRAPHS SECTION
