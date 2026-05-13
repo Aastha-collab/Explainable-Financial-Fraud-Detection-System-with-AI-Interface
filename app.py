@@ -743,16 +743,268 @@ def chatbot(query):
 # CHATBOT OUTPUT
 # =========================================================
 
+# =========================================================
+# SMART LOCAL AI CHATBOT
+# =========================================================
+
+st.markdown("## 💬 Smart Fraud Assistant")
+
+user_query = st.text_input(
+    "Ask anything about fraud, risk, prediction, model, transaction behavior, features, or business impact"
+)
+
+def smart_chatbot(query):
+
+    q = query.lower()
+
+    # =====================================================
+    # PREDICTION
+    # =====================================================
+
+    if any(word in q for word in [
+        "prediction",
+        "result",
+        "fraud or normal",
+        "is this fraud",
+        "status"
+    ]):
+
+        if prediction == 1:
+            return f"""
+🚨 This transaction is predicted as FRAUD.
+
+Fraud probability is {round(proba*100,2)}%.
+
+The transaction contains unusual behavior patterns compared to normal customer activity.
+"""
+        else:
+            return f"""
+✅ This transaction is predicted as NORMAL.
+
+Fraud probability is only {round(proba*100,2)}%.
+
+The transaction behavior aligns with expected customer patterns.
+"""
+
+    # =====================================================
+    # WHY FRAUD
+    # =====================================================
+
+    elif any(word in q for word in [
+        "why fraud",
+        "why suspicious",
+        "why flagged",
+        "fraud reason",
+        "why detected"
+    ]):
+
+        if prediction == 1:
+
+            return f"""
+The transaction is flagged as suspicious because the model detected abnormal feature patterns.
+
+Important suspicious indicators:
+{', '.join(risk_factors) if len(risk_factors)>0 else 'Multiple hidden anomaly signals'}
+
+These patterns differ significantly from legitimate customer transactions.
+"""
+        else:
+
+            return """
+The transaction is not flagged as fraud because the behavioral features remain close to normal transaction patterns with low anomaly scores.
+"""
+
+    # =====================================================
+    # RISK FACTORS
+    # =====================================================
+
+    elif any(word in q for word in [
+        "risk",
+        "risk factor",
+        "features",
+        "important feature",
+        "anomaly"
+    ]):
+
+        if len(risk_factors) > 0:
+
+            return f"""
+⚠️ Key Risk Factors:
+
+{', '.join(risk_factors)}
+
+These features show abnormal deviation from average legitimate transaction behavior.
+"""
+        else:
+
+            return """
+No strong risk factors were detected.
+
+The transaction values remain within expected customer behavior ranges.
+"""
+
+    # =====================================================
+    # PROBABILITY
+    # =====================================================
+
+    elif any(word in q for word in [
+        "probability",
+        "confidence",
+        "score",
+        "chance"
+    ]):
+
+        return f"""
+📊 Fraud Probability: {round(proba*100,2)}%
+
+Higher probability indicates stronger similarity to previously detected fraud patterns.
+"""
+
+    # =====================================================
+    # MODEL
+    # =====================================================
+
+    elif any(word in q for word in [
+        "model",
+        "algorithm",
+        "machine learning",
+        "ml model"
+    ]):
+
+        return """
+🤖 The system uses a Random Forest Machine Learning model.
+
+Random Forest analyzes multiple transaction patterns simultaneously and detects suspicious anomalies using ensemble decision trees.
+"""
+
+    # =====================================================
+    # DATASET
+    # =====================================================
+
+    elif any(word in q for word in [
+        "dataset",
+        "data",
+        "transactions"
+    ]):
+
+        return f"""
+📁 Dataset Information:
+
+• Total Transactions: {len(df)}
+• Fraud Transactions: {len(df[df['Class']==1])}
+• Normal Transactions: {len(df[df['Class']==0])}
+
+The dataset is highly imbalanced, which reflects real-world banking fraud scenarios.
+"""
+
+    # =====================================================
+    # FEATURES
+    # =====================================================
+
+    elif any(word in q for word in [
+        "v14",
+        "v10",
+        "amount",
+        "time",
+        "feature"
+    ]):
+
+        return """
+The system analyzes transaction features like Amount, Time, V14, V10, and other anonymized behavioral variables.
+
+Certain features become highly abnormal during fraudulent activities and help the model identify suspicious behavior.
+"""
+
+    # =====================================================
+    # BUSINESS IMPACT
+    # =====================================================
+
+    elif any(word in q for word in [
+        "business",
+        "impact",
+        "benefit",
+        "use case"
+    ]):
+
+        return """
+🏦 Business Impact:
+
+• Detects fraud faster
+• Reduces financial losses
+• Improves investigation speed
+• Enhances explainability
+• Supports AI-driven banking security systems
+"""
+
+    # =====================================================
+    # NORMAL VS FRAUD
+    # =====================================================
+
+    elif any(word in q for word in [
+        "difference",
+        "normal vs fraud",
+        "fraud customer",
+        "risky customer"
+    ]):
+
+        return """
+A risky customer may show unusual behavior but not necessarily fraud.
+
+A fraud customer shows strong anomaly patterns, suspicious feature deviations, and behavior highly similar to known fraudulent transactions.
+"""
+
+    # =====================================================
+    # DEFAULT
+    # =====================================================
+
+    else:
+
+        return """
+I can answer questions related to:
+
+• Fraud prediction
+• Risk factors
+• Fraud probability
+• Model explanation
+• Dataset information
+• Fraud behavior
+• Transaction analysis
+• Business impact
+• Feature importance
+"""
+
+# =========================================================
+# CHATBOT OUTPUT
+# =========================================================
+
 if user_query:
 
-    response = chatbot(user_query)
+    chatbot_response = smart_chatbot(user_query)
 
     st.markdown(f"""
-    <div class="chat-box">
+    <div style="
+    background:linear-gradient(135deg,#111827,#172554);
+    padding:24px;
+    border-radius:22px;
+    border-left:6px solid #22D3EE;
+    margin-top:15px;
+    box-shadow:0px 6px 20px rgba(0,0,0,0.35);
+    ">
 
-    <h3>🤖 AI Assistant Response</h3>
+    <h3 style="
+    color:#F9A8D4;
+    font-size:28px;
+    ">
+    🤖 AI Assistant Response
+    </h3>
 
-    {response}
+    <p style="
+    color:white;
+    font-size:17px;
+    line-height:1.8;
+    ">
+    {chatbot_response}
+    </p>
 
     </div>
     """, unsafe_allow_html=True)
