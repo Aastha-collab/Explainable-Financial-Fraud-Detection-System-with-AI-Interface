@@ -19,24 +19,30 @@ st.set_page_config(
 )
 
 # =========================================================
-# PREMIUM UI CSS
+# PREMIUM MODERN DARK-LUXURY UI CSS
+# REPLACE YOUR OLD CSS SECTION WITH THIS
 # =========================================================
 
 st.markdown("""
 <style>
 
+/* MAIN APP */
+
 .stApp {
+
     background: linear-gradient(
         135deg,
-        #F9FAFF 0%,
-        #EEF2FF 50%,
-        #FDF2F8 100%
+        #0F172A 0%,
+        #111827 40%,
+        #1E1B4B 100%
     );
-    color: #1E293B;
+
+    color: #F8FAFC;
+
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* HIDE STREAMLIT DEFAULTS */
+/* HIDE DEFAULT STREAMLIT */
 
 #MainMenu {
     visibility: hidden;
@@ -50,40 +56,184 @@ header {
     visibility: hidden;
 }
 
-/* HEADINGS */
+/* MAIN TITLES */
 
 h1 {
-    color: #6D28D9 !important;
+
+    color: #F9FAFB !important;
+
     font-size: 3rem !important;
+
     font-weight: 800 !important;
+
+    letter-spacing: 1px;
 }
 
-h2, h3 {
-    color: #7C3AED !important;
+h2 {
+
+    color: #C084FC !important;
+
+    font-weight: 700 !important;
+}
+
+h3 {
+
+    color: #F9A8D4 !important;
+
     font-weight: 700 !important;
 }
 
 /* SIDEBAR */
 
 [data-testid="stSidebar"] {
+
     background: linear-gradient(
         180deg,
-        #6D28D9 0%,
-        #7C3AED 50%,
-        #9333EA 100%
+        #111827 0%,
+        #1E293B 100%
     );
+
+    border-right: 2px solid #312E81;
 }
+
+/* SIDEBAR TEXT */
 
 [data-testid="stSidebar"] * {
-    color: white !important;
+
+    color: #F8FAFC !important;
 }
 
-/* INPUT BOX */
+/* DROPDOWN */
 
-.stNumberInput input {
-    background-color: white !important;
-    color: black !important;
-    border-radius: 10px !important;
+[data-testid="stSidebar"] .stSelectbox > div > div {
+
+    background: #1E293B !important;
+
+    color: white !important;
+
+    border-radius: 14px !important;
+
+    border: 2px solid #8B5CF6 !important;
+
+    box-shadow: 0px 2px 12px rgba(139,92,246,0.2);
+}
+
+/* DROPDOWN TEXT */
+
+[data-testid="stSidebar"] .stSelectbox * {
+
+    color: white !important;
+
+    font-weight: 600 !important;
+}
+
+/* DROPDOWN ARROW */
+
+[data-testid="stSidebar"] svg {
+
+    fill: #C084FC !important;
+}
+
+/* METRIC CARDS */
+
+.metric-card {
+
+    background: linear-gradient(
+        135deg,
+        #1E293B 0%,
+        #0F172A 100%
+    );
+
+    padding: 24px;
+
+    border-radius: 24px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+    0px 8px 24px rgba(0,0,0,0.35);
+
+    text-align: center;
+
+    transition: 0.3s;
+}
+
+.metric-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+    0px 12px 28px rgba(139,92,246,0.25);
+}
+
+/* METRIC VALUE */
+
+.metric-value {
+
+    font-size: 42px;
+
+    font-weight: 800;
+
+    color: #F9FAFB;
+}
+
+/* METRIC LABEL */
+
+.metric-label {
+
+    color: #CBD5E1;
+
+    font-size: 16px;
+
+    margin-bottom: 10px;
+}
+
+/* RESULT BOX */
+
+.result-box {
+
+    background: linear-gradient(
+        135deg,
+        #1E293B 0%,
+        #111827 100%
+    );
+
+    padding: 28px;
+
+    border-radius: 24px;
+
+    border-left: 8px solid #EC4899;
+
+    box-shadow:
+    0px 6px 22px rgba(0,0,0,0.3);
+
+    margin-top: 15px;
+}
+
+/* AI BOX */
+
+.ai-box {
+
+    background: linear-gradient(
+        135deg,
+        #312E81 0%,
+        #1E1B4B 100%
+    );
+
+    padding: 28px;
+
+    border-radius: 24px;
+
+    border-left: 8px solid #A855F7;
+
+    box-shadow:
+    0px 6px 22px rgba(168,85,247,0.25);
+
+    color: #F8FAFC;
+
+    line-height: 1.8;
+
+    font-size: 16px;
 }
 
 /* BUTTON */
@@ -92,25 +242,28 @@ h2, h3 {
 
     background: linear-gradient(
         to right,
-        #EC4899,
-        #F472B6
+        #8B5CF6,
+        #EC4899
     ) !important;
 
     color: white !important;
 
     border: none !important;
 
-    border-radius: 14px !important;
+    border-radius: 16px !important;
 
     font-size: 16px !important;
 
     font-weight: 700 !important;
 
-    padding: 12px 20px !important;
+    padding: 12px 18px !important;
 
     width: 100% !important;
 
     transition: 0.3s !important;
+
+    box-shadow:
+    0px 6px 18px rgba(236,72,153,0.25);
 }
 
 .stButton>button:hover {
@@ -119,56 +272,109 @@ h2, h3 {
 
     background: linear-gradient(
         to right,
-        #DB2777,
-        #EC4899
+        #7C3AED,
+        #DB2777
     ) !important;
 }
 
-/* METRIC CARDS */
+/* INPUT BOX */
 
-.metric-card {
+.stTextInput input {
 
-    background: white;
+    background: #111827 !important;
 
-    padding: 20px;
+    color: white !important;
 
-    border-radius: 20px;
+    border-radius: 12px !important;
 
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
-
-    text-align: center;
-}
-
-/* CHATBOX */
-
-.chat-box {
-
-    background: linear-gradient(
-        135deg,
-        #FFF1F7 0%,
-        #FFE4F1 100%
-    );
-
-    padding: 25px;
-
-    border-radius: 22px;
-
-    border-left: 8px solid #EC4899;
-
-    box-shadow: 0px 6px 18px rgba(236,72,153,0.12);
-
-    color: #1E293B;
-
-    line-height: 1.7;
+    border: 2px solid #8B5CF6 !important;
 }
 
 /* DATAFRAME */
 
 [data-testid="stDataFrame"] {
 
-    background: white !important;
+    background: #111827 !important;
 
-    border-radius: 15px !important;
+    border-radius: 18px !important;
+
+    padding: 12px !important;
+
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* DATAFRAME TEXT */
+
+[data-testid="stDataFrame"] * {
+
+    color: white !important;
+}
+
+/* EXPANDER */
+
+.streamlit-expanderHeader {
+
+    background: #1E293B !important;
+
+    border-radius: 12px !important;
+
+    color: white !important;
+}
+
+/* EXPANDER CONTENT */
+
+.streamlit-expanderContent {
+
+    background: #0F172A !important;
+
+    border-radius: 12px !important;
+
+    color: white !important;
+}
+
+/* CHATBOT BOX */
+
+.chat-box {
+
+    background: linear-gradient(
+        135deg,
+        #1E293B 0%,
+        #0F172A 100%
+    );
+
+    padding: 24px;
+
+    border-radius: 20px;
+
+    border-left: 8px solid #06B6D4;
+
+    box-shadow:
+    0px 6px 20px rgba(6,182,212,0.2);
+
+    color: #F8FAFC;
+
+    line-height: 1.8;
+}
+
+/* BLOCK CONTAINER */
+
+.block-container {
+
+    padding-top: 2rem;
+}
+
+/* SUCCESS BOX */
+
+.stSuccess {
+
+    border-radius: 16px !important;
+}
+
+/* ERROR BOX */
+
+.stError {
+
+    border-radius: 16px !important;
 }
 
 </style>
@@ -199,6 +405,7 @@ normal_means = joblib.load("normal_means.pkl")
 # =========================================================
 
 df = pd.read_csv("creditcard_sample.csv")
+df['Hour'] = df['Time'] // 3600
 
 X = df.drop("Class", axis=1)
 y = df["Class"]
