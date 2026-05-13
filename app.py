@@ -172,12 +172,11 @@ st.sidebar.markdown("""
 # 🔍 Transaction Explorer
 
 ### Features
-
-✔ Detect Fraud  
-✔ Analyze Risk Factors  
-✔ Explain Prediction  
-✔ AI Fraud Chatbot  
-✔ Interactive Visualizations
+• Detect Fraud  
+• Analyze Risk Factors  
+• Explain Prediction  
+• AI Fraud Chatbot  
+• Interactive Visualizations
 """)
 
 index = st.sidebar.selectbox(
