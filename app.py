@@ -7,6 +7,8 @@ import pandas as pd
 import numpy as np
 import joblib
 import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.graph_objects as go
 
 # =========================================================
 # PAGE CONFIG
@@ -579,40 +581,12 @@ if user_query:
 g1, g2 = st.columns(2)
 
 # =====================================================
-# VISUALIZATIONS
+# INTERACTIVE VISUALIZATIONS
 # =====================================================
 
 st.markdown("## 📊 Interactive Visualizations")
 
 col1, col2 = st.columns(2)
-
-# =====================================================
-# PIE CHART
-# =====================================================
-
-with col1:
-
-    st.markdown("### 🥧 Dataset Distribution")
-
-    fig1, ax1 = plt.subplots(figsize=(3.5,3.5))
-
-    colors = ['#A855F7', '#EC4899']
-
-    ax1.pie(
-        [
-            len(df[df['Class']==0]),
-            len(df[df['Class']==1])
-        ],
-        labels=['Normal', 'Fraud'],
-        autopct='%1.1f%%',
-        colors=colors,
-        textprops={'color':'white','fontsize':10}
-    )
-
-    fig1.patch.set_facecolor('#0B1120')
-    ax1.set_facecolor('#0B1120')
-
-    st.pyplot(fig1)
 
 # =====================================================
 # BAR GRAPH
@@ -632,34 +606,112 @@ with col2:
         for feature in selected_features
     ]
 
-    fig2, ax2 = plt.subplots(figsize=(4,3))
+    bar_df = pd.DataFrame({
+        "Feature": selected_features,
+        "Value": values
+    })
 
-    colors = [
-        '#EC4899',
-        '#A855F7',
-        '#6366F1',
-        '#06B6D4',
-        '#10B981'
-    ]
-
-    bars = ax2.bar(
-        selected_features,
-        values,
-        color=colors[:len(selected_features)]
+    fig_bar = px.bar(
+        bar_df,
+        x="Feature",
+        y="Value",
+        color="Feature",
+        color_discrete_sequence=[
+            '#EC4899',
+            '#A855F7',
+            '#6366F1',
+            '#06B6D4',
+            '#10B981'
+        ]
     )
 
-    ax2.axhline(0, color='white', linewidth=1)
+    fig_bar.update_traces(
+        hovertemplate=
+        "<b>%{x}</b><br>" +
+        "Score: %{y}<extra></extra>",
+        marker_line_color='white',
+        marker_line_width=1.5
+    )
 
-    ax2.tick_params(axis='x', labelsize=8, colors='white')
-    ax2.tick_params(axis='y', labelsize=8, colors='white')
+    fig_bar.update_layout(
+        height=380,
+        paper_bgcolor='#0B1120',
+        plot_bgcolor='#0B1120',
+        font=dict(color='white'),
+        xaxis=dict(
+            title="Features",
+            showgrid=False
+        ),
+        yaxis=dict(
+            title="Feature Score",
+            zeroline=True,
+            zerolinecolor='white',
+            gridcolor='rgba(255,255,255,0.08)'
+        ),
+        margin=dict(t=30, b=10, l=10, r=10),
+        showlegend=False
+    )
 
-    ax2.set_facecolor('#0B1120')
-    fig2.patch.set_facecolor('#0B1120')
+    st.plotly_chart(
+        fig_bar,
+        use_container_width=True
+    )
 
-    for spine in ax2.spines.values():
-        spine.set_color('white')
+# =====================================================
+# PIE CHART
+# =====================================================
 
-    st.pyplot(fig2)
+with col1:
+
+    st.markdown("### 🥧 Dataset Distribution")
+
+    pie_df = pd.DataFrame({
+        "Category": ["Normal", "Fraud"],
+        "Count": [
+            len(df[df['Class'] == 0]),
+            len(df[df['Class'] == 1])
+        ]
+    })
+
+    fig_pie = px.pie(
+        pie_df,
+        names="Category",
+        values="Count",
+        color="Category",
+        color_discrete_map={
+            "Normal": "#A855F7",
+            "Fraud": "#EC4899"
+        },
+        hole=0.35
+    )
+
+    fig_pie.update_traces(
+        textinfo='percent+label',
+        hovertemplate=
+        "<b>%{label}</b><br>" +
+        "Transactions: %{value}<br>" +
+        "Percentage: %{percent}",
+        marker=dict(
+            line=dict(
+                color='#FFFFFF',
+                width=3
+            )
+        )
+    )
+
+    fig_pie.update_layout(
+        height=380,
+        paper_bgcolor='#0B1120',
+        plot_bgcolor='#0B1120',
+        font=dict(color='white'),
+        margin=dict(t=30, b=10, l=10, r=10)
+    )
+
+    st.plotly_chart(
+        fig_pie,
+        use_container_width=True
+    )
+
 
 # =========================================================
 # BUSINESS IMPACT
