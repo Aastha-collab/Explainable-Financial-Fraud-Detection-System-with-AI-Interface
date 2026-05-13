@@ -585,31 +585,25 @@ if user_query:
     # CHATBOT OUTPUT
     # =====================================================
 
-    if user_query:
+if user_query:
 
-        chatbot_response = smart_chatbot(
-            user_query
-        )
+    chatbot_response = smart_chatbot(user_query)
 
-        st.markdown(f"""
-<div class="ai-box">
+    with st.container():
 
-<h3 style="
-color:#F472B6;
-">
-🤖 AI Assistant Response
-</h3>
+        st.markdown("""
+        <div class="ai-box">
+        """, unsafe_allow_html=True)
 
-<p style="
-color:white;
-line-height:1.8;
-font-size:17px;
-">
-{chatbot_response}
-</p>
+        st.markdown("""
+        ### 🤖 AI Assistant Response
+        """)
 
-</div>
-""", unsafe_allow_html=True)
+        st.write(chatbot_response)
+
+        st.markdown("""
+        </div>
+        """, unsafe_allow_html=True)
 
 # =========================================================
 # SMALL GRAPHS SECTION
