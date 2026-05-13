@@ -10,8 +10,7 @@ The goal is to create an interpretable fraud detection solution suitable for rea
 ## Live Demo
 https://explainable-financial-fraud-detection-system-with-ai-interface.streamlit.app/#d959becc
 
-![Uploading Screenshot (203).png…]()
-
+<img width="1920" height="888" alt="Screenshot (203)" src="https://github.com/user-attachments/assets/24558a1c-f1b0-43fe-91c6-1aac87f572b4" />
 
 ---
 
