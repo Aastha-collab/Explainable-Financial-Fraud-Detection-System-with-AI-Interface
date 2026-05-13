@@ -13,384 +13,132 @@ import matplotlib.pyplot as plt
 # =========================================================
 
 st.set_page_config(
-    page_title="Explainable Financial Fraud Detection",
-    page_icon="💳",
+    page_title="Explainable Fraud Detection",
+    page_icon="🛡️",
     layout="wide"
 )
 
 # =========================================================
-# PREMIUM MODERN DARK-LUXURY UI CSS
-# REPLACE YOUR OLD CSS SECTION WITH THIS
+# PREMIUM CSS
 # =========================================================
 
 st.markdown("""
 <style>
 
-/* MAIN APP */
-
 .stApp {
-
     background: linear-gradient(
         135deg,
-        #0F172A 0%,
+        #071028 0%,
         #111827 40%,
         #1E1B4B 100%
     );
-
-    color: #F8FAFC;
-
-    font-family: 'Segoe UI', sans-serif;
+    color: white;
 }
 
-/* HIDE DEFAULT STREAMLIT */
+/* HIDE STREAMLIT */
 
-#MainMenu {
-    visibility: hidden;
-}
-
-footer {
-    visibility: hidden;
-}
-
-header {
-    visibility: hidden;
-}
-
-/* MAIN TITLES */
-
-h1 {
-
-    color: #F9FAFB !important;
-
-    font-size: 3rem !important;
-
-    font-weight: 800 !important;
-
-    letter-spacing: 1px;
-}
-
-h2 {
-
-    color: #C084FC !important;
-
-    font-weight: 700 !important;
-}
-
-h3 {
-
-    color: #F9A8D4 !important;
-
-    font-weight: 700 !important;
-}
+#MainMenu {visibility:hidden;}
+footer {visibility:hidden;}
+header {visibility:hidden;}
 
 /* SIDEBAR */
 
-[data-testid="stSidebar"] {
-
+[data-testid="stSidebar"]{
     background: linear-gradient(
         180deg,
-        #111827 0%,
-        #1E293B 100%
+        #081225 0%,
+        #111827 50%,
+        #1E1B4B 100%
     );
-
-    border-right: 2px solid #312E81;
+    border-right:1px solid rgba(255,255,255,0.08);
 }
 
-/* SIDEBAR TEXT */
-
-[data-testid="stSidebar"] * {
-
-    color: #F8FAFC !important;
+[data-testid="stSidebar"] *{
+    color:white !important;
 }
 
 /* DROPDOWN */
 
-[data-testid="stSidebar"] .stSelectbox > div > div {
-
-    background: #1E293B !important;
-
-    color: white !important;
-
-    border-radius: 14px !important;
-
-    border: 2px solid #8B5CF6 !important;
-
-    box-shadow: 0px 2px 12px rgba(139,92,246,0.2);
-}
-
-/* DROPDOWN TEXT */
-
-[data-testid="stSidebar"] .stSelectbox * {
-
-    color: white !important;
-
-    font-weight: 600 !important;
-}
-
-/* DROPDOWN ARROW */
-
-[data-testid="stSidebar"] svg {
-
-    fill: #C084FC !important;
+.stSelectbox div[data-baseweb="select"]{
+    background:#111827 !important;
+    border-radius:14px !important;
+    border:2px solid #8B5CF6 !important;
 }
 
 /* METRIC CARDS */
 
-.metric-card {
-
-    background: linear-gradient(
-        135deg,
-        #1E293B 0%,
-        #0F172A 100%
-    );
-
-    padding: 24px;
-
-    border-radius: 24px;
-
-    border: 1px solid rgba(255,255,255,0.08);
-
-    box-shadow:
-    0px 8px 24px rgba(0,0,0,0.35);
-
-    text-align: center;
-
-    transition: 0.3s;
-}
-
-.metric-card:hover {
-
-    transform: translateY(-4px);
-
-    box-shadow:
-    0px 12px 28px rgba(139,92,246,0.25);
-}
-
-/* METRIC VALUE */
-
-.metric-value {
-
-    font-size: 42px;
-
-    font-weight: 800;
-
-    color: #F9FAFB;
-}
-
-/* METRIC LABEL */
-
-.metric-label {
-
-    color: #CBD5E1;
-
-    font-size: 16px;
-
-    margin-bottom: 10px;
-}
-
-/* RESULT BOX */
-
-.result-box {
-
-    background: linear-gradient(
-        135deg,
-        #1E293B 0%,
-        #111827 100%
-    );
-
-    padding: 28px;
-
-    border-radius: 24px;
-
-    border-left: 8px solid #EC4899;
-
-    box-shadow:
-    0px 6px 22px rgba(0,0,0,0.3);
-
-    margin-top: 15px;
+.metric-card{
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(10px);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:0px 6px 20px rgba(0,0,0,0.35);
+    border:1px solid rgba(255,255,255,0.06);
 }
 
 /* AI BOX */
 
-.ai-box {
-
+.ai-box{
     background: linear-gradient(
         135deg,
-        #312E81 0%,
-        #1E1B4B 100%
+        rgba(17,24,39,0.95),
+        rgba(30,27,75,0.95)
     );
+    padding:28px;
+    border-radius:24px;
+    border-left:6px solid #22D3EE;
+    box-shadow:0px 8px 30px rgba(0,0,0,0.35);
+}
 
-    padding: 28px;
+/* RESULT BOX */
 
-    border-radius: 24px;
-
-    border-left: 8px solid #A855F7;
-
-    box-shadow:
-    0px 6px 22px rgba(168,85,247,0.25);
-
-    color: #F8FAFC;
-
-    line-height: 1.8;
-
-    font-size: 16px;
+.result-box{
+    background: rgba(255,255,255,0.05);
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0px 6px 18px rgba(0,0,0,0.35);
 }
 
 /* BUTTON */
 
-.stButton>button {
-
+.stButton>button{
     background: linear-gradient(
         to right,
-        #8B5CF6,
-        #EC4899
+        #EC4899,
+        #F472B6
     ) !important;
 
-    color: white !important;
+    color:white !important;
+    border:none !important;
+    border-radius:14px !important;
+    font-weight:700 !important;
+    padding:12px 20px !important;
 
-    border: none !important;
-
-    border-radius: 16px !important;
-
-    font-size: 16px !important;
-
-    font-weight: 700 !important;
-
-    padding: 12px 18px !important;
-
-    width: 100% !important;
-
-    transition: 0.3s !important;
-
-    box-shadow:
-    0px 6px 18px rgba(236,72,153,0.25);
+    box-shadow:0px 6px 18px rgba(236,72,153,0.35);
 }
 
-.stButton>button:hover {
-
-    transform: scale(1.02);
-
-    background: linear-gradient(
-        to right,
-        #7C3AED,
-        #DB2777
-    ) !important;
+.stButton>button:hover{
+    transform:scale(1.02);
 }
 
-/* INPUT BOX */
+/* CHAT INPUT */
 
-.stTextInput input {
-
-    background: #111827 !important;
-
-    color: white !important;
-
-    border-radius: 12px !important;
-
-    border: 2px solid #8B5CF6 !important;
+.stTextInput input{
+    background:#111827 !important;
+    color:white !important;
+    border:2px solid #EC4899 !important;
+    border-radius:14px !important;
 }
 
 /* DATAFRAME */
 
-[data-testid="stDataFrame"] {
-
-    background: #111827 !important;
-
-    border-radius: 18px !important;
-
-    padding: 12px !important;
-
-    border: 1px solid rgba(255,255,255,0.08);
-}
-
-/* DATAFRAME TEXT */
-
-[data-testid="stDataFrame"] * {
-
-    color: white !important;
-}
-
-/* EXPANDER */
-
-.streamlit-expanderHeader {
-
-    background: #1E293B !important;
-
-    border-radius: 12px !important;
-
-    color: white !important;
-}
-
-/* EXPANDER CONTENT */
-
-.streamlit-expanderContent {
-
-    background: #0F172A !important;
-
-    border-radius: 12px !important;
-
-    color: white !important;
-}
-
-/* CHATBOT BOX */
-
-.chat-box {
-
-    background: linear-gradient(
-        135deg,
-        #1E293B 0%,
-        #0F172A 100%
-    );
-
-    padding: 24px;
-
-    border-radius: 20px;
-
-    border-left: 8px solid #06B6D4;
-
-    box-shadow:
-    0px 6px 20px rgba(6,182,212,0.2);
-
-    color: #F8FAFC;
-
-    line-height: 1.8;
-}
-
-/* BLOCK CONTAINER */
-
-.block-container {
-
-    padding-top: 2rem;
-}
-
-/* SUCCESS BOX */
-
-.stSuccess {
-
-    border-radius: 16px !important;
-}
-
-/* ERROR BOX */
-
-.stError {
-
-    border-radius: 16px !important;
+[data-testid="stDataFrame"]{
+    border-radius:15px !important;
+    overflow:hidden !important;
 }
 
 </style>
 """, unsafe_allow_html=True)
-
-# =========================================================
-# HEADER
-# =========================================================
-
-st.markdown("""
-# 💳 Explainable Financial Fraud Detection System
-
-### AI-Based Fraud Detection, Risk Analysis & Chatbot Intelligence Dashboard
-
-This system detects suspicious financial transactions using Machine Learning and explains the fraud reasoning through intelligent risk analysis and chatbot interaction.
-""")
 
 # =========================================================
 # LOAD FILES
@@ -405,27 +153,29 @@ normal_means = joblib.load("normal_means.pkl")
 # =========================================================
 
 df = pd.read_csv("creditcard_sample.csv")
-df['Hour'] = df['Time'] // 3600
+
+# FIX HOUR FEATURE ISSUE
+
+if "Hour" not in df.columns:
+    df["Hour"] = df["Time"] // 3600
 
 X = df.drop("Class", axis=1)
 y = df["Class"]
-
-fraud_df = df[df["Class"] == 1]
-normal_df = df[df["Class"] == 0]
 
 # =========================================================
 # SIDEBAR
 # =========================================================
 
-st.sidebar.markdown("# 🔍 Transaction Explorer")
-
 st.sidebar.markdown("""
-Choose a transaction to:
+# 🔍 Transaction Explorer
+
+### Features
 
 ✔ Detect Fraud  
 ✔ Analyze Risk Factors  
-✔ Generate Explanation  
-✔ Interact with AI Chatbot
+✔ Explain Prediction  
+✔ AI Fraud Chatbot  
+✔ Interactive Visualizations
 """)
 
 index = st.sidebar.selectbox(
@@ -448,7 +198,7 @@ proba = rf_model.predict_proba(
 )[0][1]
 
 # =========================================================
-# RISK FACTOR FUNCTION
+# RISK FACTORS
 # =========================================================
 
 def get_risk_factors(
@@ -463,17 +213,21 @@ def get_risk_factors(
     for feature in top_features:
 
         value = transaction[feature]
-
         mean_value = normal_means[feature]
 
         if abs(value - mean_value) > threshold:
-
             risk_factors.append(feature)
 
     return risk_factors
 
+risk_factors = get_risk_factors(
+    transaction,
+    top_features,
+    normal_means
+)
+
 # =========================================================
-# EXPLANATION FUNCTION
+# EXPLANATION
 # =========================================================
 
 def generate_explanation(
@@ -485,31 +239,23 @@ def generate_explanation(
 
         if len(risk_factors) == 0:
 
-            return "Transaction appears normal with stable behavior patterns."
+            return """
+Transaction behavior appears stable and aligned with normal customer activity.
+"""
 
         else:
 
-            return f"Transaction appears mostly normal but shows slight deviations in {', '.join(risk_factors)}."
+            return f"""
+Transaction is normal but slight deviations detected in:
+{', '.join(risk_factors)}
+"""
 
     else:
 
-        if len(risk_factors) == 0:
-
-            return "Transaction flagged suspicious due to anomaly detection."
-
-        else:
-
-            return f"Transaction flagged suspicious due to abnormal behavior in {', '.join(risk_factors)}."
-
-# =========================================================
-# RESULTS
-# =========================================================
-
-risk_factors = get_risk_factors(
-    transaction,
-    top_features,
-    normal_means
-)
+        return f"""
+Transaction flagged suspicious due to abnormal deviations in:
+{', '.join(risk_factors)}
+"""
 
 explanation = generate_explanation(
     prediction,
@@ -517,512 +263,406 @@ explanation = generate_explanation(
 )
 
 # =========================================================
-# ANALYTICS
+# HERO SECTION
 # =========================================================
 
-st.markdown("## 📊 System Analytics")
+st.markdown("""
+<div style="
+padding:35px;
+border-radius:28px;
+background: linear-gradient(
+135deg,
+#0F172A,
+#111827,
+#1E1B4B
+);
+box-shadow:0px 10px 35px rgba(0,0,0,0.45);
+margin-bottom:25px;
+">
 
-col1, col2, col3 = st.columns(3)
+<h1 style="
+color:white;
+font-size:50px;
+font-weight:800;
+">
+🛡️ Explainable Financial Fraud Detection
+</h1>
 
-with col1:
+<p style="
+color:#CBD5E1;
+font-size:18px;
+line-height:1.8;
+">
 
-    st.markdown(f"""
-    <div class="metric-card">
-    <h3>Total Transactions</h3>
-    <h1>{len(df)}</h1>
-    </div>
-    """, unsafe_allow_html=True)
+AI-powered fraud detection system that analyzes transaction behavior,
+detects suspicious financial patterns,
+explains fraud reasoning,
+and enables intelligent financial investigation.
 
-with col2:
-
-    st.markdown(f"""
-    <div class="metric-card">
-    <h3>Fraud Cases</h3>
-    <h1>{len(fraud_df)}</h1>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-
-    st.markdown(f"""
-    <div class="metric-card">
-    <h3>Normal Cases</h3>
-    <h1>{len(normal_df)}</h1>
-    </div>
-    """, unsafe_allow_html=True)
-
-# =========================================================
-# PREDICTION RESULT
-# =========================================================
-
-st.markdown("## 🎯 Prediction Result")
-
-if prediction == 1:
-
-    st.error("🚨 Fraud Transaction Detected")
-
-else:
-
-    st.success("✅ Normal Transaction")
-
-# =========================================================
-# PROBABILITY CARD
-# =========================================================
-
-st.markdown(f"""
-<div class="chat-box">
-
-<h3>📌 Fraud Probability</h3>
-
-<h2>{round(proba*100,2)}%</h2>
+</p>
 
 </div>
 """, unsafe_allow_html=True)
 
 # =========================================================
-# RISK FACTORS
+# METRICS
 # =========================================================
 
-st.markdown("## ⚠️ Risk Factors")
+m1, m2, m3, m4 = st.columns(4)
 
-if len(risk_factors) > 0:
+cards = [
 
-    st.markdown(f"""
-    <div class="chat-box">
+    ("Total Transactions", len(df)),
+    ("Fraud Cases", len(df[df['Class']==1])),
+    ("Normal Cases", len(df[df['Class']==0])),
+    ("Fraud Probability", f"{round(proba*100,2)}%")
+]
 
-    <b>Detected Risk Features:</b><br><br>
+for col, (title, value) in zip(
+    [m1,m2,m3,m4],
+    cards
+):
 
-    {", ".join(risk_factors)}
+    col.markdown(f"""
+    <div class="metric-card">
+
+    <h4 style="color:#CBD5E1;">
+    {title}
+    </h4>
+
+    <h1 style="
+    color:white;
+    font-size:38px;
+    ">
+    {value}
+    </h1>
 
     </div>
     """, unsafe_allow_html=True)
 
-else:
-
-    st.success("No major risk factors detected.")
-
 # =========================================================
-# EXPLANATION
+# NEW DASHBOARD LAYOUT
 # =========================================================
 
-st.markdown("## 🤖 AI Explanation")
-
-st.markdown(f"""
-<div class="chat-box">
-
-{explanation}
-
-</div>
-""", unsafe_allow_html=True)
+left, right = st.columns([1,1])
 
 # =========================================================
-# TRANSACTION DETAILS
+# LEFT SIDE
 # =========================================================
 
-with st.expander("📄 View Transaction Details"):
+with left:
 
-    st.dataframe(
-        transaction.to_frame().T,
-        use_container_width=True
+    st.markdown("## 🎯 Fraud Detection Result")
+
+    st.markdown("""
+    <div class="result-box">
+    """, unsafe_allow_html=True)
+
+    if prediction == 1:
+        st.error("🚨 Fraudulent Transaction")
+    else:
+        st.success("✅ Normal Transaction")
+
+    st.markdown("### ⚠️ Risk Factors")
+
+    if len(risk_factors) > 0:
+
+        for factor in risk_factors:
+            st.markdown(f"- **{factor}**")
+
+    else:
+
+        st.success("No major anomalies detected")
+
+    st.markdown("### 🧠 Fraud Explanation")
+
+    st.write(explanation)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # TRANSACTION DETAILS
+
+    with st.expander("📄 View Transaction Details"):
+
+        st.dataframe(
+            transaction.to_frame().T,
+            use_container_width=True
+        )
+
+# =========================================================
+# RIGHT SIDE
+# =========================================================
+
+with right:
+
+    st.markdown("""
+    <div class="ai-box">
+
+    <h2 style="
+    color:#F9A8D4;
+    ">
+    🤖 AI Fraud Chatbot
+    </h2>
+
+    <p style="
+    color:#CBD5E1;
+    line-height:1.7;
+    ">
+
+    This assistant can answer questions related to:
+
+    • Fraud prediction  
+    • Risk factors  
+    • Fraud probability  
+    • Transaction behavior  
+    • Model explanation  
+    • Dataset information  
+    • Fraud analysis  
+    • Business impact  
+
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    user_query = st.text_input(
+        "Ask anything about the fraud detection project"
     )
 
+    # =====================================================
+    # SMART CHATBOT
+    # =====================================================
+
+    def smart_chatbot(query):
+
+        q = query.lower()
+
+        if any(word in q for word in [
+            "prediction",
+            "fraud",
+            "result"
+        ]):
+
+            if prediction == 1:
+
+                return f"""
+This transaction is predicted as FRAUD with probability of {round(proba*100,2)}%.
+"""
+
+            else:
+
+                return f"""
+This transaction is predicted as NORMAL with low fraud probability of {round(proba*100,2)}%.
+"""
+
+        elif any(word in q for word in [
+            "risk",
+            "factor",
+            "why"
+        ]):
+
+            return f"""
+Main suspicious indicators:
+{', '.join(risk_factors)}
+"""
+
+        elif any(word in q for word in [
+            "model",
+            "algorithm"
+        ]):
+
+            return """
+The system uses Random Forest Machine Learning algorithm for fraud classification.
+"""
+
+        elif any(word in q for word in [
+            "dataset",
+            "data"
+        ]):
+
+            return f"""
+Dataset contains:
+
+• Total Transactions: {len(df)}
+• Fraud Cases: {len(df[df['Class']==1])}
+• Normal Cases: {len(df[df['Class']==0])}
+"""
+
+        elif any(word in q for word in [
+            "business",
+            "impact"
+        ]):
+
+            return """
+This system helps banks reduce fraud losses,
+improve fraud investigation speed,
+and enhance explainability in financial systems.
+"""
+
+        else:
+
+            return """
+I can answer questions related to fraud prediction,
+risk factors,
+dataset,
+model,
+transaction behavior,
+and business impact.
+"""
+
+    # =====================================================
+    # CHATBOT OUTPUT
+    # =====================================================
+
+    if user_query:
+
+        chatbot_response = smart_chatbot(
+            user_query
+        )
+
+        st.markdown(f"""
+        <div class="ai-box">
+
+        <h3 style="
+        color:#F472B6;
+        ">
+        🤖 AI Assistant Response
+        </h3>
+
+        <p style="
+        color:white;
+        line-height:1.8;
+        font-size:17px;
+        ">
+        {chatbot_response}
+        </p>
+
+        </div>
+        """, unsafe_allow_html=True)
+
 # =========================================================
-# BAR GRAPH
+# SMALL GRAPHS SECTION
 # =========================================================
 
-st.markdown("## 📊 Feature Visualization")
+g1, g2 = st.columns(2)
 
-selected_features = risk_factors[:5]
+# =========================================================
+# FEATURE IMPORTANCE GRAPH
+# =========================================================
 
-if len(selected_features) == 0:
+with g1:
 
-    selected_features = top_features[:5]
+    st.markdown("## 📊 Feature Analysis")
 
-values = [
-    abs(transaction[feature])
-    for feature in selected_features
-]
+    selected_features = ['Amount', 'V14', 'V10']
 
-fig, ax = plt.subplots(figsize=(6,3))
+    values = [
+        transaction['Amount'],
+        transaction['V14'],
+        transaction['V10']
+    ]
 
-colors = [
-    '#EC4899',
-    '#A855F7',
-    '#6366F1',
-    '#06B6D4',
-    '#10B981'
-]
+    fig1, ax1 = plt.subplots(
+        figsize=(4,2.5)
+    )
 
-ax.bar(
-    selected_features,
-    values,
-    color=colors[:len(selected_features)]
-)
+    colors = []
 
-ax.set_title(
-    "Risk Feature Scores",
-    fontsize=12
-)
+    for val in values:
 
-ax.tick_params(
-    axis='x',
-    labelsize=9
-)
+        if val >= 0:
+            colors.append("#22D3EE")
+        else:
+            colors.append("#F472B6")
 
-ax.tick_params(
-    axis='y',
-    labelsize=9
-)
+    ax1.bar(
+        selected_features,
+        values,
+        color=colors,
+        width=0.5
+    )
 
-fig.patch.set_facecolor('#F8FAFF')
+    ax1.axhline(
+        y=0,
+        color='white',
+        linewidth=1
+    )
 
-ax.set_facecolor('#FFFFFF')
+    ax1.set_facecolor("#111827")
 
-st.pyplot(fig)
+    fig1.patch.set_facecolor("#111827")
+
+    ax1.tick_params(
+        colors='white',
+        labelsize=8
+    )
+
+    ax1.set_title(
+        "Feature Scores",
+        color='white',
+        fontsize=10
+    )
+
+    st.pyplot(fig1)
 
 # =========================================================
 # PIE CHART
 # =========================================================
 
-st.markdown("## 📈 Dataset Distribution")
+with g2:
 
-fig2, ax2 = plt.subplots(figsize=(4,4))
+    st.markdown("## 📈 Dataset Distribution")
 
-colors = ['#A78BFA', '#F472B6']
+    fig2, ax2 = plt.subplots(
+        figsize=(4,2.5)
+    )
 
-ax2.pie(
-    [
-        len(normal_df),
-        len(fraud_df)
-    ],
-    labels=['Normal', 'Fraud'],
-    autopct='%1.1f%%',
-    colors=colors,
-    textprops={'fontsize': 10}
-)
+    ax2.pie(
 
-fig2.patch.set_facecolor('#F8FAFF')
+        [
+            len(df[df['Class']==0]),
+            len(df[df['Class']==1])
+        ],
 
-st.pyplot(fig2)
+        labels=['Normal','Fraud'],
 
-# =========================================================
-# CHATBOT
-# =========================================================
+        autopct='%1.1f%%',
 
-st.markdown("## 💬 AI Fraud Chatbot")
+        colors=['#22D3EE','#F472B6'],
 
-user_query = st.text_input(
-    "Ask about prediction, risk, fraud reason, or model"
-)
+        textprops={'color':'white','fontsize':8}
+    )
 
-def chatbot(query):
+    fig2.patch.set_facecolor("#111827")
 
-    q = query.lower()
-
-    if "prediction" in q:
-
-        return "Fraud Transaction" if prediction == 1 else "Normal Transaction"
-
-    elif "why" in q:
-
-        return explanation
-
-    elif "risk" in q:
-
-        return f"Risk Factors: {risk_factors}"
-
-    elif "model" in q:
-
-        return "The model used is Random Forest Classifier."
-
-    else:
-
-        return "Ask about fraud prediction, risk factors, explanation, or model."
-
-# =========================================================
-# CHATBOT OUTPUT
-# =========================================================
-
-# =========================================================
-# SMART LOCAL AI CHATBOT
-# =========================================================
-
-st.markdown("## 💬 Smart Fraud Assistant")
-
-user_query = st.text_input(
-    "Ask anything about fraud, risk, prediction, model, transaction behavior, features, or business impact"
-)
-
-def smart_chatbot(query):
-
-    q = query.lower()
-
-    # =====================================================
-    # PREDICTION
-    # =====================================================
-
-    if any(word in q for word in [
-        "prediction",
-        "result",
-        "fraud or normal",
-        "is this fraud",
-        "status"
-    ]):
-
-        if prediction == 1:
-            return f"""
-🚨 This transaction is predicted as FRAUD.
-
-Fraud probability is {round(proba*100,2)}%.
-
-The transaction contains unusual behavior patterns compared to normal customer activity.
-"""
-        else:
-            return f"""
-✅ This transaction is predicted as NORMAL.
-
-Fraud probability is only {round(proba*100,2)}%.
-
-The transaction behavior aligns with expected customer patterns.
-"""
-
-    # =====================================================
-    # WHY FRAUD
-    # =====================================================
-
-    elif any(word in q for word in [
-        "why fraud",
-        "why suspicious",
-        "why flagged",
-        "fraud reason",
-        "why detected"
-    ]):
-
-        if prediction == 1:
-
-            return f"""
-The transaction is flagged as suspicious because the model detected abnormal feature patterns.
-
-Important suspicious indicators:
-{', '.join(risk_factors) if len(risk_factors)>0 else 'Multiple hidden anomaly signals'}
-
-These patterns differ significantly from legitimate customer transactions.
-"""
-        else:
-
-            return """
-The transaction is not flagged as fraud because the behavioral features remain close to normal transaction patterns with low anomaly scores.
-"""
-
-    # =====================================================
-    # RISK FACTORS
-    # =====================================================
-
-    elif any(word in q for word in [
-        "risk",
-        "risk factor",
-        "features",
-        "important feature",
-        "anomaly"
-    ]):
-
-        if len(risk_factors) > 0:
-
-            return f"""
-⚠️ Key Risk Factors:
-
-{', '.join(risk_factors)}
-
-These features show abnormal deviation from average legitimate transaction behavior.
-"""
-        else:
-
-            return """
-No strong risk factors were detected.
-
-The transaction values remain within expected customer behavior ranges.
-"""
-
-    # =====================================================
-    # PROBABILITY
-    # =====================================================
-
-    elif any(word in q for word in [
-        "probability",
-        "confidence",
-        "score",
-        "chance"
-    ]):
-
-        return f"""
-📊 Fraud Probability: {round(proba*100,2)}%
-
-Higher probability indicates stronger similarity to previously detected fraud patterns.
-"""
-
-    # =====================================================
-    # MODEL
-    # =====================================================
-
-    elif any(word in q for word in [
-        "model",
-        "algorithm",
-        "machine learning",
-        "ml model"
-    ]):
-
-        return """
-🤖 The system uses a Random Forest Machine Learning model.
-
-Random Forest analyzes multiple transaction patterns simultaneously and detects suspicious anomalies using ensemble decision trees.
-"""
-
-    # =====================================================
-    # DATASET
-    # =====================================================
-
-    elif any(word in q for word in [
-        "dataset",
-        "data",
-        "transactions"
-    ]):
-
-        return f"""
-📁 Dataset Information:
-
-• Total Transactions: {len(df)}
-• Fraud Transactions: {len(df[df['Class']==1])}
-• Normal Transactions: {len(df[df['Class']==0])}
-
-The dataset is highly imbalanced, which reflects real-world banking fraud scenarios.
-"""
-
-    # =====================================================
-    # FEATURES
-    # =====================================================
-
-    elif any(word in q for word in [
-        "v14",
-        "v10",
-        "amount",
-        "time",
-        "feature"
-    ]):
-
-        return """
-The system analyzes transaction features like Amount, Time, V14, V10, and other anonymized behavioral variables.
-
-Certain features become highly abnormal during fraudulent activities and help the model identify suspicious behavior.
-"""
-
-    # =====================================================
-    # BUSINESS IMPACT
-    # =====================================================
-
-    elif any(word in q for word in [
-        "business",
-        "impact",
-        "benefit",
-        "use case"
-    ]):
-
-        return """
-🏦 Business Impact:
-
-• Detects fraud faster
-• Reduces financial losses
-• Improves investigation speed
-• Enhances explainability
-• Supports AI-driven banking security systems
-"""
-
-    # =====================================================
-    # NORMAL VS FRAUD
-    # =====================================================
-
-    elif any(word in q for word in [
-        "difference",
-        "normal vs fraud",
-        "fraud customer",
-        "risky customer"
-    ]):
-
-        return """
-A risky customer may show unusual behavior but not necessarily fraud.
-
-A fraud customer shows strong anomaly patterns, suspicious feature deviations, and behavior highly similar to known fraudulent transactions.
-"""
-
-    # =====================================================
-    # DEFAULT
-    # =====================================================
-
-    else:
-
-        return """
-I can answer questions related to:
-
-• Fraud prediction
-• Risk factors
-• Fraud probability
-• Model explanation
-• Dataset information
-• Fraud behavior
-• Transaction analysis
-• Business impact
-• Feature importance
-"""
-
-# =========================================================
-# CHATBOT OUTPUT
-# =========================================================
-
-if user_query:
-
-    chatbot_response = smart_chatbot(user_query)
-
-    st.markdown(f"""
-    <div style="
-    background:linear-gradient(135deg,#111827,#172554);
-    padding:24px;
-    border-radius:22px;
-    border-left:6px solid #22D3EE;
-    margin-top:15px;
-    box-shadow:0px 6px 20px rgba(0,0,0,0.35);
-    ">
-
-    <h3 style="
-    color:#F9A8D4;
-    font-size:28px;
-    ">
-    🤖 AI Assistant Response
-    </h3>
-
-    <p style="
-    color:white;
-    font-size:17px;
-    line-height:1.8;
-    ">
-    {chatbot_response}
-    </p>
-
-    </div>
-    """, unsafe_allow_html=True)
+    st.pyplot(fig2)
 
 # =========================================================
 # BUSINESS IMPACT
 # =========================================================
 
 st.markdown("""
----
+<div class="ai-box">
 
-## 💼 Business Impact
+<h2 style="
+color:#F9A8D4;
+">
+💼 Business Impact
+</h2>
 
-This system helps financial institutions to:
+<p style="
+color:white;
+line-height:1.9;
+font-size:17px;
+">
 
-- Detect suspicious transactions faster
-- Improve fraud explainability
-- Understand transaction risk behavior
-- Reduce manual fraud investigation time
-- Enhance AI-driven financial monitoring systems
-""")
+• Detect suspicious transactions faster  
+• Improve fraud explainability  
+• Reduce manual fraud investigation time  
+• Enhance AI-driven financial monitoring  
+• Strengthen banking security systems  
+
+</p>
+
+</div>
+""", unsafe_allow_html=True)
