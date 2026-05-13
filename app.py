@@ -456,6 +456,35 @@ This transaction is predicted as NORMAL with low fraud probability of {round(pro
 """
 
         elif any(word in q for word in [
+        "transaction behavior",
+        "behaviour",
+        "behavior",
+        "customer behavior",
+        "transaction pattern",
+        "spending pattern"
+    ]):
+
+            amount = transaction['Amount']
+
+            if prediction == 1:
+
+                  return f"""
+This transaction shows suspicious behavioral patterns.
+
+The model detected abnormal deviations in features like {', '.join(risk_factors)}.
+
+Transaction amount of {round(amount,2)} and unusual feature activity differ significantly from legitimate customer transaction patterns, which increases fraud probability.
+"""
+
+           else:
+
+                  return f"""
+This transaction shows stable and legitimate customer behavior.
+
+Transaction amount of {round(amount,2)} and feature patterns remain close to normal transaction activity with low anomaly signals.
+"""
+
+        elif any(word in q for word in [
             "risk",
             "factor",
             "why"
@@ -497,26 +526,6 @@ Dataset contains:
 This system helps banks reduce fraud losses,
 improve fraud investigation speed,
 and enhance explainability in financial systems.
-"""
-        elif any(word in q for word in [
-        "transaction behavior",
-        "behaviour",
-        "behavior",
-        "customer behavior",
-        "transaction pattern",
-        "spending pattern"
-    ]):
-        
-        amount = transaction['Amount']
-
-        if prediction == 1:
-
-            return f"""
-This transaction shows suspicious behavioral patterns.
-
-The model detected abnormal deviations in features like {', '.join(risk_factors)}.
-
-Transaction amount of {round(amount,2)} and unusual feature activity differ significantly from legitimate customer transaction patterns, which increases fraud probability.
 """
 
         else:
