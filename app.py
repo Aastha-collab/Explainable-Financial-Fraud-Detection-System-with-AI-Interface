@@ -429,17 +429,15 @@ with right:
         "Ask anything about the fraud detection project"
     )
 
-    # =====================================================
-    # SMART CHATBOT
-    # =====================================================
+   # =====================================================
+# SMART CHATBOT
+# =====================================================
 
-   def smart_chatbot(query):
+def smart_chatbot(query):
 
     q = query.lower()
 
-    # =====================================================
     # PREDICTION
-    # =====================================================
 
     if any(word in q for word in [
         "prediction",
@@ -459,9 +457,7 @@ This transaction is predicted as FRAUD with probability of {round(proba*100,2)}%
 This transaction is predicted as NORMAL with low fraud probability of {round(proba*100,2)}%.
 """
 
-    # =====================================================
     # TRANSACTION BEHAVIOR
-    # =====================================================
 
     elif any(word in q for word in [
         "transaction behavior",
@@ -481,7 +477,7 @@ This transaction shows suspicious behavioral patterns.
 
 The model detected abnormal deviations in features like {', '.join(risk_factors)}.
 
-Transaction amount of {round(amount,2)} and unusual feature activity differ significantly from legitimate customer transaction patterns, which increases fraud probability.
+Transaction amount of {round(amount,2)} and unusual feature activity differ significantly from legitimate customer transaction patterns.
 """
 
         else:
@@ -489,12 +485,10 @@ Transaction amount of {round(amount,2)} and unusual feature activity differ sign
             return f"""
 This transaction shows stable and legitimate customer behavior.
 
-Transaction amount of {round(amount,2)} and feature patterns remain close to normal transaction activity with low anomaly signals.
+Transaction amount of {round(amount,2)} and feature patterns remain close to normal transaction activity.
 """
 
-    # =====================================================
     # RISK FACTORS
-    # =====================================================
 
     elif any(word in q for word in [
         "risk",
@@ -507,9 +501,7 @@ Main suspicious indicators:
 {', '.join(risk_factors)}
 """
 
-    # =====================================================
     # MODEL
-    # =====================================================
 
     elif any(word in q for word in [
         "model",
@@ -520,9 +512,7 @@ Main suspicious indicators:
 The system uses Random Forest Machine Learning algorithm for fraud classification.
 """
 
-    # =====================================================
     # DATASET
-    # =====================================================
 
     elif any(word in q for word in [
         "dataset",
@@ -537,9 +527,7 @@ Dataset contains:
 • Normal Cases: {len(df[df['Class']==0])}
 """
 
-    # =====================================================
     # BUSINESS IMPACT
-    # =====================================================
 
     elif any(word in q for word in [
         "business",
@@ -552,9 +540,7 @@ improve fraud investigation speed,
 and enhance explainability in financial systems.
 """
 
-    # =====================================================
-    # DEFAULT RESPONSE
-    # =====================================================
+    # DEFAULT
 
     else:
 
@@ -568,6 +554,32 @@ I can answer questions related to:
 • Transaction behavior
 • Business impact
 """
+
+# =====================================================
+# CHATBOT OUTPUT
+# =====================================================
+
+if user_query:
+
+    chatbot_response = smart_chatbot(user_query)
+
+    st.markdown(f"""
+    <div class="ai-box">
+
+    <h3 style="color:#F472B6;">
+    🤖 AI Assistant Response
+    </h3>
+
+    <p style="
+    color:white;
+    line-height:1.8;
+    font-size:17px;
+    ">
+    {chatbot_response}
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)
 
     # =====================================================
     # CHATBOT OUTPUT
