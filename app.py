@@ -743,7 +743,7 @@ st.markdown("""
 <h2 style="
 color:#F9A8D4;
 ">
-💼 Business Impact
+Business Impact
 </h2>
 
 <p style="
