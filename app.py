@@ -498,6 +498,34 @@ This system helps banks reduce fraud losses,
 improve fraud investigation speed,
 and enhance explainability in financial systems.
 """
+            elif any(word in q for word in [
+        "transaction behavior",
+        "behaviour",
+        "behavior",
+        "customer behavior",
+        "transaction pattern",
+        "spending pattern"
+    ]):
+
+        amount = transaction['Amount']
+
+        if prediction == 1:
+
+            return f"""
+This transaction shows suspicious behavioral patterns.
+
+The model detected abnormal deviations in features like {', '.join(risk_factors)}.
+
+Transaction amount of {round(amount,2)} and unusual feature activity differ significantly from legitimate customer transaction patterns, which increases fraud probability.
+"""
+
+        else:
+
+            return f"""
+This transaction shows stable and legitimate customer behavior.
+
+Transaction amount of {round(amount,2)} and feature patterns remain close to normal transaction activity with low anomaly signals.
+"""    
 
         else:
 
@@ -550,60 +578,69 @@ g1, g2 = st.columns(2)
 # FEATURE IMPORTANCE GRAPH
 # =========================================================
 
-with g1:
+# =========================================================
+# BAR GRAPH
+# =========================================================
 
-    st.markdown("## 📊 Feature Analysis")
+st.markdown("## 📊 Feature Visualization")
 
-    selected_features = ['Amount', 'V14', 'V10']
+selected_features = risk_factors[:5]
 
-    values = [
-        transaction['Amount'],
-        transaction['V14'],
-        transaction['V10']
-    ]
+if len(selected_features) == 0:
 
-    fig1, ax1 = plt.subplots(
-        figsize=(4,2.5)
-    )
+    selected_features = top_features[:5]
 
-    colors = []
+# KEEP ORIGINAL VALUES (INCLUDING NEGATIVE)
 
-    for val in values:
+values = [
+    transaction[feature]
+    for feature in selected_features
+]
 
-        if val >= 0:
-            colors.append("#8B5CF6")
-        else:
-            colors.append("#EC4899")
+fig, ax = plt.subplots(figsize=(6,3))
 
-    ax1.bar(
-        selected_features,
-        values,
-        color=colors,
-        width=0.5
-    )
+colors = [
+    '#EC4899',
+    '#A855F7',
+    '#6366F1',
+    '#06B6D4',
+    '#10B981'
+]
 
-    ax1.axhline(
-        y=0,
-        color='white',
-        linewidth=1
-    )
+ax.bar(
+    selected_features,
+    values,
+    color=colors[:len(selected_features)]
+)
 
-    ax1.set_facecolor("#111827")
+# ZERO LINE FOR NEGATIVE VALUES
 
-    fig1.patch.set_facecolor("#111827")
+ax.axhline(
+    y=0,
+    color='black',
+    linewidth=1
+)
 
-    ax1.tick_params(
-        colors='white',
-        labelsize=8
-    )
+ax.set_title(
+    "Risk Feature Scores",
+    fontsize=12
+)
 
-    ax1.set_title(
-        "Feature Scores",
-        color='white',
-        fontsize=10
-    )
+ax.tick_params(
+    axis='x',
+    labelsize=9
+)
 
-    st.pyplot(fig1)
+ax.tick_params(
+    axis='y',
+    labelsize=9
+)
+
+fig.patch.set_facecolor('#F8FAFF')
+
+ax.set_facecolor('#FFFFFF')
+
+st.pyplot(fig)
 
 # =========================================================
 # PIE CHART
@@ -628,7 +665,7 @@ with g2:
 
         autopct='%1.1f%%',
 
-        colors=['#8B5CF6','#EC4899'],
+        colors=['#A78BFA', '#F472B6'],
 
         textprops={'color':'white','fontsize':8}
     )
