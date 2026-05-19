@@ -20,7 +20,7 @@ Financial institutions process millions of transactions daily, making manual fra
 ---
 
 ## Project Pipeline
-Data Loading → Data Cleaning → EDA → Feature Engineering → Train/Test Split → Scaling → Handle Imbalance → Model Training → Model Evaluation → Best Model Selection → Risk Factor Extraction → nomaly Detection (Isolation Forest) →  Explanation Layer → Chatbot Interface
+Data Loading → Data Cleaning → EDA → Feature Engineering → Train/Test Split → Scaling → Handle Imbalance → Model Training → Model Evaluation → Best Model Selection → Risk Factor Extraction → Anomaly Detection (Isolation Forest) →  Explanation Layer → Chatbot Interface
 
 ---
 
